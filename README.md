@@ -15,8 +15,12 @@ Open native dialog systems translate:
 
 iOS document:
   - https://developer.apple.com/documentation/Translation/translating-text-within-your-app
-Android document: https://developer.android.com/guide/topics/ui/look-and-feel/translations
 
+Android document: 
+  - https://developer.android.com/guide/topics/ui/look-and-feel/translations
+
+
+## Demo
 | iOS | Android |
 |--------|--------|
 | ![Alt text](docs/screenshot.png) | ![Alt text](docs/screenshot-android.jpg) |
