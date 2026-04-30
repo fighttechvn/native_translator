@@ -18,6 +18,12 @@ class MethodChannelNativeTranslator extends NativeTranslatorPlatform {
   }
 
   @override
+  Future<bool> isSupported() async {
+    final supported = await methodChannel.invokeMethod<bool>('isSupported');
+    return supported ?? false;
+  }
+
+  @override
   Future<void> translateText({
     required String text,
     int backgroundColorRed = 255,

@@ -5,6 +5,10 @@ class NativeTranslator {
     return NativeTranslatorPlatform.instance.getPlatformVersion();
   }
 
+  Future<bool> isSupported() {
+    return NativeTranslatorPlatform.instance.isSupported();
+  }
+
   Future<void> translateText({
     required String text,
     int backgroundColorRed = 255,

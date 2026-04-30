@@ -17,6 +17,8 @@ public class NativeTranslatorPlugin: NSObject, FlutterPlugin {
     switch call.method {
     case "getPlatformVersion":
       result("iOS " + UIDevice.current.systemVersion)
+    case "isSupported":
+      result(true)
     case "translateText":
       translateText(call: call, result: result)
     default:

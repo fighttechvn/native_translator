@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:native_translator/native_translator.dart';
@@ -63,6 +64,8 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text('Running on: $_platformVersion\n'),
+              FutureBuilder(future: NativeTranslator().isSupported(), builder:(context, snapshot) => Text('Supported: ${snapshot.data}'),),
+
               const SizedBox(height: 20),
               TextField(
                 controller: _textController,
@@ -76,9 +79,25 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   if (_textController.text.isNotEmpty) {
-                    await NativeTranslator().translateText(
-                      text: _textController.text,
-                    );
+                    try {
+                      final isSupported = await NativeTranslator().isSupported();
+                      if (!isSupported) {
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Native translation is not supported on this device.')),
+                        );
+                        return;
+                      }
+
+                      await NativeTranslator().translateText(
+                        text: _textController.text,
+                      );
+                    } catch (e, trace) {
+                      if (kDebugMode) {
+                        print(e);
+                        print(trace);
+                      }
+                    }
                   }
                 },
                 child: const Text('Translate'),

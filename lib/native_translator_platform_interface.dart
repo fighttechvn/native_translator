@@ -27,6 +27,10 @@ abstract class NativeTranslatorPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
+  Future<bool> isSupported() {
+    throw UnimplementedError('isSupported() has not been implemented.');
+  }
+
   Future<void> translateText({
     required String text,
     int backgroundColorRed = 255,

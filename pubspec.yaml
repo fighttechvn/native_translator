@@ -1,6 +1,6 @@
 name: native_translator
 description: "use native translate popup"
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/fighttechvn/native_translator
 issue_tracker: https://github.com/fighttechvn/native_translator/issues
 screenshots:
@@ -38,6 +38,9 @@ flutter:
   # adding or updating assets for this project.
   plugin:
     platforms:
+      android:
+        package: fighttechvn.native_translator
+        pluginClass: NativeTranslatorPlugin
       ios:
         pluginClass: NativeTranslatorPlugin
   # To add assets to your plugin package, add an assets section, like this:
