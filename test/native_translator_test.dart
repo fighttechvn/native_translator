@@ -18,6 +18,11 @@ class MockNativeTranslatorPlatform
     int backgroundColorBlue = 255,
     int backgroundColorAlpha = 255,
   }) async {}
+
+  @override
+  Future<bool> isSupported() async {
+    return true;
+  }
 }
 
 void main() {

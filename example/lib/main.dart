@@ -64,7 +64,11 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text('Running on: $_platformVersion\n'),
-              FutureBuilder(future: NativeTranslator().isSupported(), builder:(context, snapshot) => Text('Supported: ${snapshot.data}'),),
+              FutureBuilder(
+                future: NativeTranslator().isSupported(),
+                builder: (context, snapshot) =>
+                    Text('Supported: ${snapshot.data}'),
+              ),
 
               const SizedBox(height: 20),
               TextField(
@@ -80,11 +84,16 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   if (_textController.text.isNotEmpty) {
                     try {
-                      final isSupported = await NativeTranslator().isSupported();
+                      final isSupported = await NativeTranslator()
+                          .isSupported();
                       if (!isSupported) {
                         if (!context.mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Native translation is not supported on this device.')),
+                          const SnackBar(
+                            content: Text(
+                              'Native translation is not supported on this device.',
+                            ),
+                          ),
                         );
                         return;
                       }
