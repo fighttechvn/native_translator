@@ -5,11 +5,12 @@ iOS native translate text
 + Minimum iOS version: 15.0
 
 # How to use
+Open native dialog systems translate:
 
 ```bash
   await NativeTranslator().translateText(
-        text: _textController.text,
-      );
+    text: _textController.text,
+  );
 ```
 
 iOS document:
