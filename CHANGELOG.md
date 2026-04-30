@@ -1,3 +1,6 @@
+## 0.0.5
++ Add feature check support
+
 ## 0.0.4
 * Android native translate text
 
