@@ -18,7 +18,11 @@ public class NativeTranslatorPlugin: NSObject, FlutterPlugin {
     case "getPlatformVersion":
       result("iOS " + UIDevice.current.systemVersion)
     case "isSupported":
-      result(true)
+      if #available(iOS 15.0, *) {
+        result(true)
+      } else {
+        result(false)
+      }
     case "translateText":
       translateText(call: call, result: result)
     default:
@@ -110,53 +114,62 @@ public class NativeTranslatorPlugin: NSObject, FlutterPlugin {
           result(nil)
         }
       } else {
-        // Fallback for iOS < 17.4 - use activity controller
+        // Fallback for iOS < 17.4
         Task { @MainActor in
-          let activityVC = UIActivityViewController(
-            activityItems: [text],
-            applicationActivities: nil
-          )
-
-          // For iPad support
-          if let popover = activityVC.popoverPresentationController {
-            popover.sourceView = controller.view
-            popover.sourceRect = CGRect(
-              x: controller.view.bounds.midX,
-              y: controller.view.bounds.midY,
-              width: 0,
-              height: 0
-            )
-            popover.permittedArrowDirections = []
-          }
-
-          controller.present(activityVC, animated: true)
-          result(nil)
+          self.presentFallbackTranslation(text: text, controller: controller, result: result)
         }
       }
     #else
       // Fallback when Translation framework is not available
       Task { @MainActor in
-        let activityVC = UIActivityViewController(
-          activityItems: [text],
-          applicationActivities: nil
-        )
-
-        // For iPad support
-        if let popover = activityVC.popoverPresentationController {
-          popover.sourceView = controller.view
-          popover.sourceRect = CGRect(
-            x: controller.view.bounds.midX,
-            y: controller.view.bounds.midY,
-            width: 0,
-            height: 0
-          )
-          popover.permittedArrowDirections = []
-        }
-
-        controller.present(activityVC, animated: true)
-        result(nil)
+        self.presentFallbackTranslation(text: text, controller: controller, result: result)
       }
     #endif
+  }
+
+  @MainActor
+  private func presentFallbackTranslation(text: String, controller: UIViewController, result: @escaping FlutterResult) {
+    if #available(iOS 15.0, *) {
+      let textView = UITextView()
+      textView.text = text
+      textView.isEditable = false
+      textView.isHidden = true
+      controller.view.addSubview(textView)
+      textView.selectAll(nil)
+      
+      let translateSelector = NSSelectorFromString("_translate:")
+      if textView.responds(to: translateSelector) {
+        textView.perform(translateSelector, with: nil)
+        
+        // Clean up after presentation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+          textView.removeFromSuperview()
+        }
+        result(nil)
+        return
+      }
+      textView.removeFromSuperview()
+    }
+    
+    // Fallback to Activity View Controller if iOS < 15.0 or _translate: is not responded to
+    let activityVC = UIActivityViewController(
+      activityItems: [text],
+      applicationActivities: nil
+    )
+
+    if let popover = activityVC.popoverPresentationController {
+      popover.sourceView = controller.view
+      popover.sourceRect = CGRect(
+        x: controller.view.bounds.midX,
+        y: controller.view.bounds.midY,
+        width: 0,
+        height: 0
+      )
+      popover.permittedArrowDirections = []
+    }
+
+    controller.present(activityVC, animated: true)
+    result(nil)
   }
 }
 
