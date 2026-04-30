@@ -1,12 +1,12 @@
 name: native_translator
 description: "use native translate popup"
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/fighttechvn/native_translator
 issue_tracker: https://github.com/fighttechvn/native_translator/issues
 
 environment:
-  sdk: ^3.11.5
-  flutter: '>=3.3.0'
+  sdk: ^3.8.0
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
@@ -37,7 +37,6 @@ flutter:
     platforms:
       ios:
         pluginClass: NativeTranslatorPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
