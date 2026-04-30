@@ -17,7 +17,11 @@ iOS document:
   - https://developer.apple.com/documentation/Translation/translating-text-within-your-app
 Android document: https://developer.android.com/guide/topics/ui/look-and-feel/translations
 
-![Alt text](docs/screenshot.png)
+| iOS | Android |
+|--------|--------|
+| ![Alt text](docs/screenshot.png) | ![Alt text](docs/screenshot-android.jpg) |
+
+
 
 
 # Orther solution:
