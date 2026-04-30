@@ -1,8 +1,11 @@
 name: native_translator
 description: "use native translate popup"
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/fighttechvn/native_translator
 issue_tracker: https://github.com/fighttechvn/native_translator/issues
+screenshots:
+  - description: "Easy to show dialog translate native iOS"
+    path: docs/screenshot.png
 
 environment:
   sdk: ^3.8.0
