@@ -2,7 +2,7 @@
 
 iOS native translate text
 
-+ Minimum iOS version: 15.0
++ Runtime use only Minimum iOS version: 15.0
 
 # How to use
 Open native dialog systems translate:
@@ -17,14 +17,13 @@ iOS document:
   - https://developer.apple.com/documentation/Translation/translating-text-within-your-app
 
 Android document: 
-  - https://developer.android.com/guide/topics/ui/look-and-feel/translations
+  - https://android-developers.googleblog.com/2015/10/in-app-translations-in-android.html
 
 
 ## Demo
 | iOS | Android |
 |--------|--------|
 | ![Alt text](docs/screenshot.png) | ![Alt text](docs/screenshot-android.jpg) |
-
 
 
 
