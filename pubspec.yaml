@@ -1,6 +1,6 @@
 name: native_translator
 description: "use native translate popup"
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/fighttechvn/native_translator
 issue_tracker: https://github.com/fighttechvn/native_translator/issues
 screenshots:
@@ -29,4 +29,3 @@ flutter:
         pluginClass: NativeTranslatorPlugin
       ios:
         pluginClass: NativeTranslatorPlugin
- 
