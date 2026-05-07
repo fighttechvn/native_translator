@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  bool _isTopUI = true;
 
   @override
   void initState() {
@@ -62,8 +62,15 @@ class _MyAppState extends State<MyApp> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: Platform.isIOS ? MainAxisAlignment.start :  MainAxisAlignment.end,
+            mainAxisAlignment: _isTopUI
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.end,
             children: [
+              SwitchListTile(
+                title: const Text('UI on top'),
+                value: _isTopUI,
+                onChanged: (v) => setState(() => _isTopUI = v),
+              ),
               Text('Running on: $_platformVersion\n'),
               FutureBuilder(
                 future: NativeTranslator().isSupported(),
