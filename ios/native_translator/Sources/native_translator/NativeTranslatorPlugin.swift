@@ -24,7 +24,15 @@ public class NativeTranslatorPlugin: NSObject, FlutterPlugin {
         result(false)
       }
     case "translateText":
-      translateText(call: call, result: result)
+      if #available(iOS 13.0, *) {
+        translateText(call: call, result: result)
+      } else {
+        result(
+          FlutterError(
+            code: "UNSUPPORTED",
+            message: "translateText requires iOS 13.0 or newer",
+            details: nil))
+      }
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -54,6 +62,7 @@ public class NativeTranslatorPlugin: NSObject, FlutterPlugin {
     return topController
   }
 
+  @available(iOS 13.0, *)
   private func translateText(call: FlutterMethodCall, result: @escaping FlutterResult) {
     guard let args = call.arguments as? [String: Any],
       let text = args["text"] as? String
